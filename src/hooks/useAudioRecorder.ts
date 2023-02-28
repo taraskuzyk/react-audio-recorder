@@ -68,12 +68,13 @@ const useAudioRecorder: () => recorderControls = () => {
   /**
    * Calling this method results in a recording in progress being stopped and the resulting audio being present in `recordingBlob`. Sets `isRecording` to false
    */
-  const stopRecording: () => void = () => {
+  const stopRecording: () => Blob | undefined = () => {
     mediaRecorder?.stop();
     _stopTimer();
     setRecordingTime(0);
     setIsRecording(false);
     setIsPaused(false);
+    return recordingBlob;
   };
 
   /**
