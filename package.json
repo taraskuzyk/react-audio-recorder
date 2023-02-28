@@ -42,7 +42,8 @@
     "lint:fix": "npm run lint -- --fix",
     "test": "vitest",
     "storybook": "start-storybook -p 6006 --no-manager-cache",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "prepare": "npm run build"
   },
   "peerDependencies": {
     "react": ">=16.2.0",
