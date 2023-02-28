@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 
 export interface recorderControls {
   startRecording: () => void;
-  stopRecording: () => void;
+  stopRecording: () => Blob;
   togglePauseResume: () => void;
   recordingBlob?: Blob;
   isRecording: boolean;
@@ -68,13 +68,16 @@ const useAudioRecorder: () => recorderControls = () => {
   /**
    * Calling this method results in a recording in progress being stopped and the resulting audio being present in `recordingBlob`. Sets `isRecording` to false
    */
-  const stopRecording: () => Blob | undefined = () => {
+  const stopRecording: () => Blob = () => {
     mediaRecorder?.stop();
     _stopTimer();
     setRecordingTime(0);
     setIsRecording(false);
     setIsPaused(false);
-    return recordingBlob;
+    if (recordingBlob !== undefined) {
+      return recordingBlob;
+    }
+    return new Blob();
   };
 
   /**
